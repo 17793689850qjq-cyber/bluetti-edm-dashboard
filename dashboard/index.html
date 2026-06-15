@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BLUETTI Klaviyo 全球监控</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div>
+        <h1>BLUETTI Klaviyo 全球监控</h1>
+        <p class="subtitle" id="meta-line">加载中…</p>
+      </div>
+      <div class="controls">
+        <label>
+          视图
+          <select id="section-select">
+            <option value="overview">全球总览</option>
+            <option value="sites">分站诊断</option>
+            <option value="flow">Flow 待关注</option>
+            <option value="playbook">Playbook</option>
+          </select>
+        </label>
+        <label id="metric-filter-wrap" class="hidden">
+          指标
+          <select id="metric-view">
+            <option value="combined">合计</option>
+            <option value="campaign">Campaign</option>
+            <option value="flow">Flow</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="loading" class="loading">正在加载数据…</div>
+    <div id="error" class="error hidden"></div>
+
+    <section id="view-overview" class="view hidden">
+      <div class="kpi-grid" id="kpi-grid"></div>
+      <div class="chart-row">
+        <div class="card">
+          <h2>Campaign vs Flow GMV</h2>
+          <div class="pie-wrap">
+            <canvas id="pie-chart"></canvas>
+            <div id="pie-legend" class="pie-legend"></div>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <h2>各站 GMV (CNY)</h2>
+          <canvas id="bar-chart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h2>各站对比</h2>
+        <div class="table-wrap">
+          <table id="overview-table">
+            <thead>
+              <tr>
+                <th>站点</th>
+                <th>Campaign CNY</th>
+                <th>Flow CNY</th>
+                <th>合计 CNY</th>
+                <th>打开率</th>
+                <th>转化率</th>
+                <th>占比</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-sites" class="view hidden">
+      <p class="hint">展开站点 → Campaign / Flow。每条含 Subject、受众与原因解读（近 30 天）。</p>
+      <div id="sites-container"></div>
+    </section>
+
+    <section id="view-flow" class="view hidden">
+      <p class="hint">各站 Flow 待关注项（同序列内容已本地化，不做跨站指标对比）。</p>
+      <div class="card">
+        <div class="table-wrap">
+          <table id="flow-table">
+            <thead>
+              <tr>
+                <th>优先级</th>
+                <th>站点</th>
+                <th>Flow</th>
+                <th>类型</th>
+                <th>现象</th>
+                <th>建议</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-playbook" class="view hidden">
+      <div class="playbook-grid" id="playbook-grid"></div>
+    </section>
+
+    <footer class="footer">
+      <p>数据每日由 GitHub Actions 从 Klaviyo API 同步 · 转化口径：Placed Order · 统计周期：近 30 天</p>
+    </footer>
+  </main>
+</body>
+</html>

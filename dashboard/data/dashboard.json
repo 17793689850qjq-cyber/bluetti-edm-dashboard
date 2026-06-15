@@ -1,0 +1,948 @@
+{
+  "meta": {
+    "updatedAt": "2026-06-15T03:28:18Z",
+    "period": "近 30 天",
+    "timeframe": "last_30_days",
+    "siteCount": 11,
+    "errors": [],
+    "seed": true
+  },
+  "totals": {
+    "campaignCny": 11161662,
+    "flowCny": 11320284,
+    "gmvCny": 22481946,
+    "campaignShare": 0.4964722359888241,
+    "flowShare": 0.5035277640111759,
+    "global": {
+      "deliveryRate": 0.99,
+      "openRate": 0.42383421618837847,
+      "clickRate": 0.019037422668854786,
+      "convRate": 0.0008500732959871636,
+      "gmvCny": 22481946
+    }
+  },
+  "siteOrder": [
+    "US",
+    "AU",
+    "CA",
+    "UK",
+    "FR",
+    "DE",
+    "IT",
+    "EU",
+    "ES",
+    "JP",
+    "CL"
+  ],
+  "rows": [
+    {
+      "region": "US",
+      "currency": "USD",
+      "campaign": {
+        "deliveryRate": 0.9981,
+        "openRate": 0.476,
+        "clickRate": 0.0129,
+        "convRate": 0.000283,
+        "gmv": 487639.52,
+        "conversions": 444,
+        "delivered": 1570693
+      },
+      "flow": {
+        "deliveryRate": 0.968,
+        "openRate": 0.372,
+        "clickRate": 0.039,
+        "convRate": 0.00601,
+        "gmv": 451316.84,
+        "conversions": 372,
+        "delivered": 61929
+      },
+      "campaignGmvCny": 3354960,
+      "flowGmvCny": 3105060,
+      "totalGmvCny": 6460020
+    },
+    {
+      "region": "AU",
+      "currency": "AUD",
+      "campaign": {
+        "deliveryRate": 0.9987,
+        "openRate": 0.562,
+        "clickRate": 0.0369,
+        "convRate": 0.00163,
+        "gmv": 591494.91,
+        "conversions": 386,
+        "delivered": 236410
+      },
+      "flow": {
+        "deliveryRate": 0.988,
+        "openRate": 0.447,
+        "clickRate": 0.0762,
+        "convRate": 0.0163,
+        "gmv": 440826.51,
+        "conversions": 288,
+        "delivered": 17621
+      },
+      "campaignGmvCny": 2892410,
+      "flowGmvCny": 2155642,
+      "totalGmvCny": 5048052
+    },
+    {
+      "region": "CA",
+      "currency": "CAD",
+      "campaign": {
+        "deliveryRate": 0.9989,
+        "openRate": 0.494,
+        "clickRate": 0.0203,
+        "convRate": 0.0006,
+        "gmv": 248958.42,
+        "conversions": 219,
+        "delivered": 364870
+      },
+      "flow": {
+        "deliveryRate": 0.9927,
+        "openRate": 0.599,
+        "clickRate": 0.1026,
+        "convRate": 0.0168,
+        "gmv": 296946.16,
+        "conversions": 244,
+        "delivered": 14560
+      },
+      "campaignGmvCny": 1252261,
+      "flowGmvCny": 1493639,
+      "totalGmvCny": 2745900
+    },
+    {
+      "region": "UK",
+      "currency": "GBP",
+      "campaign": {
+        "deliveryRate": 0.9941,
+        "openRate": 0.351,
+        "clickRate": 0.0149,
+        "convRate": 0.000346,
+        "gmv": 83122.62,
+        "conversions": 118,
+        "delivered": 341464
+      },
+      "flow": {
+        "deliveryRate": 0.9902,
+        "openRate": 0.365,
+        "clickRate": 0.0647,
+        "convRate": 0.0112,
+        "gmv": 109522,
+        "conversions": 149,
+        "delivered": 13360
+      },
+      "campaignGmvCny": 773872,
+      "flowGmvCny": 1019650,
+      "totalGmvCny": 1793521
+    },
+    {
+      "region": "FR",
+      "currency": "EUR",
+      "campaign": {
+        "deliveryRate": 0.9954,
+        "openRate": 0.289,
+        "clickRate": 0.0161,
+        "convRate": 0.000512,
+        "gmv": 74549,
+        "conversions": 105,
+        "delivered": 205271
+      },
+      "flow": {
+        "deliveryRate": 0.9948,
+        "openRate": 0.467,
+        "clickRate": 0.0886,
+        "convRate": 0.015,
+        "gmv": 109154.55,
+        "conversions": 120,
+        "delivered": 8015
+      },
+      "campaignGmvCny": 605338,
+      "flowGmvCny": 886335,
+      "totalGmvCny": 1491673
+    },
+    {
+      "region": "DE",
+      "currency": "EUR",
+      "campaign": {
+        "deliveryRate": 0.9982,
+        "openRate": 0.384,
+        "clickRate": 0.0318,
+        "convRate": 0.00103,
+        "gmv": 79100.44,
+        "conversions": 178,
+        "delivered": 173484
+      },
+      "flow": {
+        "deliveryRate": 0.9714,
+        "openRate": 0.502,
+        "clickRate": 0.0923,
+        "convRate": 0.0112,
+        "gmv": 59409.04,
+        "conversions": 88,
+        "delivered": 7851
+      },
+      "campaignGmvCny": 642296,
+      "flowGmvCny": 482401,
+      "totalGmvCny": 1124697
+    },
+    {
+      "region": "IT",
+      "currency": "EUR",
+      "campaign": {
+        "deliveryRate": 0.9984,
+        "openRate": 0.309,
+        "clickRate": 0.0154,
+        "convRate": 0.000348,
+        "gmv": 60075.76,
+        "conversions": 60,
+        "delivered": 172548
+      },
+      "flow": {
+        "deliveryRate": 0.9899,
+        "openRate": 0.466,
+        "clickRate": 0.095,
+        "convRate": 0.0146,
+        "gmv": 86809.01,
+        "conversions": 104,
+        "delivered": 7134
+      },
+      "campaignGmvCny": 487815,
+      "flowGmvCny": 704889,
+      "totalGmvCny": 1192704
+    },
+    {
+      "region": "EU",
+      "currency": "EUR",
+      "campaign": {
+        "deliveryRate": 0.9983,
+        "openRate": 0.318,
+        "clickRate": 0.0177,
+        "convRate": 0.000215,
+        "gmv": 48103.58,
+        "conversions": 68,
+        "delivered": 316069
+      },
+      "flow": {
+        "deliveryRate": 0.9908,
+        "openRate": 0.339,
+        "clickRate": 0.0572,
+        "convRate": 0.00718,
+        "gmv": 100161.16,
+        "conversions": 113,
+        "delivered": 15747
+      },
+      "campaignGmvCny": 390601,
+      "flowGmvCny": 813309,
+      "totalGmvCny": 1203910
+    },
+    {
+      "region": "ES",
+      "currency": "EUR",
+      "campaign": {
+        "deliveryRate": 0.998,
+        "openRate": 0.316,
+        "clickRate": 0.0179,
+        "convRate": 0.000285,
+        "gmv": 34461.27,
+        "conversions": 38,
+        "delivered": 133479
+      },
+      "flow": {
+        "deliveryRate": 0.9895,
+        "openRate": 0.427,
+        "clickRate": 0.076,
+        "convRate": 0.00868,
+        "gmv": 49622.33,
+        "conversions": 64,
+        "delivered": 7377
+      },
+      "campaignGmvCny": 279826,
+      "flowGmvCny": 402933,
+      "totalGmvCny": 682759
+    },
+    {
+      "region": "JP",
+      "currency": "JPY",
+      "campaign": {
+        "deliveryRate": 0.9971,
+        "openRate": 0.4,
+        "clickRate": 0.0154,
+        "convRate": 0.000539,
+        "gmv": 7647712,
+        "conversions": 158,
+        "delivered": 293242
+      },
+      "flow": {
+        "deliveryRate": 0.994,
+        "openRate": 0.206,
+        "clickRate": 0.0645,
+        "convRate": 0.0125,
+        "gmv": 2501067,
+        "conversions": 35,
+        "delivered": 2804
+      },
+      "campaignGmvCny": 336499,
+      "flowGmvCny": 110047,
+      "totalGmvCny": 446546
+    },
+    {
+      "region": "CL",
+      "currency": "CLP",
+      "campaign": {
+        "deliveryRate": 0.9959,
+        "openRate": 0.278,
+        "clickRate": 0.0206,
+        "convRate": 0.000745,
+        "gmv": 18453723,
+        "conversions": 23,
+        "delivered": 30890
+      },
+      "flow": {
+        "deliveryRate": 0.9902,
+        "openRate": 0.508,
+        "clickRate": 0.0841,
+        "convRate": 0.0176,
+        "gmv": 18529020,
+        "conversions": 23,
+        "delivered": 1308
+      },
+      "campaignGmvCny": 145784,
+      "flowGmvCny": 146379,
+      "totalGmvCny": 292164
+    }
+  ],
+  "siteWhy": {
+    "US": {
+      "summary": "Campaign 靠 Active 60D + 大促/会员主题；Flow 靠结账弃单的高购买意图。",
+      "campaignBest": [
+        {
+          "name": "MAY Member Day Sale",
+          "subject": "4-Day BLUETTI Member Day Sale | Exclusive Member Perks",
+          "audience": "Active 60D",
+          "reasons": [
+            "Active 60D 非 ALL，打开 57%",
+            "Member Day + 双倍 Bucks 权益清晰",
+            "4 天限时 urgency"
+          ]
+        },
+        {
+          "name": "Email 1 (6月大促)",
+          "subject": "Your Early Prime Day Deals Are Here",
+          "audience": "Active 60D",
+          "reasons": [
+            "Prime Day 节点 + 打开 61%",
+            "30-day price guarantee 降决策门槛",
+            "点击 3.1%"
+          ]
+        },
+        {
+          "name": "飓风月促72小时",
+          "subject": "72-Hour Hurricane Prep Sale — Shop Before It Ends",
+          "audience": "Active 60D",
+          "reasons": [
+            "飓风季场景共鸣",
+            "72h 倒计时",
+            "GMV $68K"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "夏季内容营销（世界杯）",
+          "subject": "Game Day, Campsite, Blackout: One Power Setup for Summer",
+          "audience": "ALL（27 万）",
+          "reasons": [
+            "全库 ALL 导致打开仅 26%",
+            "纯内容/场景叙事，促销钩子弱",
+            "点击 0.5%、RPR $0.05——宽网内容不适合大规模群发"
+          ]
+        },
+        {
+          "name": "春季拉新篇章3",
+          "subject": "Endless Energy for Life's Best Moments",
+          "audience": "ALL（26 万）",
+          "reasons": [
+            "同样 ALL 宽网，打开 32%",
+            "RV/生活方式内容无明确 offer",
+            "转化 0.007% 几乎无 revenue"
+          ]
+        },
+        {
+          "name": "FrigePower 24hrs Last Call|Subscribers",
+          "subject": "Final 24 Hours to Claim Your FridgePower VIP Price!",
+          "audience": "众筹预热 list（8.7K）",
+          "reasons": [
+            "受众已预热但仍打开 37%、GMV $132",
+            "众筹尾期 list 疲劳或 offer 不匹配",
+            "应缩小至未转化定金用户"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "弃单挽回-Checkout Abandoned Flow_V1",
+          "subject": "（序列多封，Top 邮件转化 4%）",
+          "audience": "Checkout 弃单",
+          "reasons": [
+            "行为触发，转化 2.8%",
+            "RPR 远超 Campaign"
+          ]
+        },
+        {
+          "name": "Welcome flow",
+          "subject": "（序列 Email 3 打开 38%、转化 0.8% 最佳）",
+          "audience": "新订阅",
+          "reasons": [
+            "体量 3.8 万+ 累积 GMV",
+            "序列中后期邮件贡献主要转化"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Welcome flow · Email 1",
+          "subject": "（首封打开 28%，9K 人）",
+          "audience": "新订阅",
+          "reasons": [
+            "Welcome 首封打开低于序列后续 10pp+",
+            "建议 A/B 主题行/延迟发送",
+            "优先级 P1"
+          ]
+        },
+        {
+          "name": "Growave - Points Expiration",
+          "subject": "积分过期提醒",
+          "audience": "会员积分",
+          "reasons": [
+            "打开 36% 但 GMV 极低",
+            "非核心 revenue Flow，可降频或合并"
+          ]
+        },
+        {
+          "name": "Sunset Unengaged Subscribers",
+          "subject": "（List Hygiene 序列）",
+          "audience": "低 engagement",
+          "reasons": [
+            "打开 3–6% 为预期行为",
+            "非优化对象，仅监控 list 健康"
+          ]
+        }
+      ]
+    },
+    "AU": {
+      "summary": "EOFY + Active 30D 是 AU Campaign 密码；Flow Checkout 转化 4.8%。",
+      "campaignBest": [
+        {
+          "name": "Eofy-Sale-2026（Active 30D)",
+          "subject": "EOFY 财年促销",
+          "audience": "Active 30D",
+          "reasons": [
+            "本地 EOFY 节点",
+            "打开 68%、RPR A$6.34"
+          ]
+        },
+        {
+          "name": "EOFY Top Deals and Giveaway",
+          "subject": "Top Deals + Giveaway",
+          "audience": "Active 60D",
+          "reasons": [
+            "抽奖拉升点击 3.6%"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "Email 1 (clone 3)",
+          "subject": "（同主促克隆）",
+          "audience": "Subscribed ALL（排除 Active）",
+          "reasons": [
+            "冷订阅池打开 4.6%",
+            "证明 AU 绝不应向非 Active 宽网促销",
+            "应立即停止此类克隆"
+          ]
+        },
+        {
+          "name": "Eofy-Sale（Active 60D)",
+          "subject": "EOFY 促销",
+          "audience": "Active 60D（排除 30D）",
+          "reasons": [
+            "同活动 30D 打开 68% vs 60D 仅 9%",
+            "受众分层错误导致资源浪费"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Checkout Abandoned Flow_V1",
+          "subject": "弃单挽回序列",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 4.8%"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Sunset Unengaged Subscribers",
+          "subject": "List Hygiene",
+          "audience": "低 engagement",
+          "reasons": [
+            "打开 2.6% 预期",
+            "监控即可"
+          ]
+        }
+      ]
+    },
+    "CA": {
+      "summary": "会员日 + 产品聚焦 Campaign；Flow Checkout 是全球标杆之一。",
+      "campaignBest": [
+        {
+          "name": "5月会员日5.20",
+          "subject": "会员日专属",
+          "audience": "Active",
+          "reasons": [
+            "打开 69%"
+          ]
+        },
+        {
+          "name": "b500k 复购 5.25",
+          "subject": "B500K 复购",
+          "audience": "已购/意向",
+          "reasons": [
+            "小名单 RPR C$7.75"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "6.2 RV专题促销EDM",
+          "subject": "RV 专题",
+          "audience": "Active",
+          "reasons": [
+            "打开 68% 但 GMV 低于会员日",
+            "主题宽，可更聚焦 SKU"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Checkout Abandoned Flow_V1",
+          "subject": "弃单序列",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 4.8%、GMV Flow 第一"
+          ]
+        }
+      ],
+      "flowWorst": []
+    },
+    "UK": {
+      "summary": "Bank Holiday / Prime 本地促销有效；Flow Welcome 打开优于 Campaign。",
+      "campaignBest": [
+        {
+          "name": "UK-Prime Summer Power Pre-Sale",
+          "subject": "Prime Summer 预售",
+          "audience": "Active",
+          "reasons": [
+            "本地节点"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "UK-User Stories",
+          "subject": "用户故事",
+          "audience": "Active",
+          "reasons": [
+            "点击 0.3%、GMV 最低",
+            "纯内容无 CTA"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Welcome flow_V1",
+          "subject": "Welcome 序列",
+          "audience": "新订阅",
+          "reasons": [
+            "打开 53%"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Sunset",
+          "subject": "Hygiene",
+          "audience": "低 engagement",
+          "reasons": [
+            "预期低打开"
+          ]
+        }
+      ]
+    },
+    "FR": {
+      "summary": "Campaign 打开天花板低；Flow 才是真正转化引擎。",
+      "campaignBest": [
+        {
+          "name": "PD预售（修改）",
+          "subject": "Prime Day 预售",
+          "audience": "FR 订阅（排除 45D 已购）",
+          "reasons": [
+            "促销钩子 + 排除已购"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "用户故事",
+          "subject": "Historias/Stories",
+          "audience": "FR 全订阅",
+          "reasons": [
+            "点击 0.5%",
+            "内容型无 offer"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Welcome flow_V1",
+          "subject": "Welcome",
+          "audience": "新订阅",
+          "reasons": [
+            "转化 2.8%"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Sunset",
+          "subject": "Hygiene",
+          "audience": "低 engagement",
+          "reasons": [
+            "监控"
+          ]
+        }
+      ]
+    },
+    "DE": {
+      "summary": "Transferhub 转化标杆；Flow Checkout 3.5%。",
+      "campaignBest": [
+        {
+          "name": "Transferhub-1",
+          "subject": "TransferHub 新品",
+          "audience": "Active DE",
+          "reasons": [
+            "转化 0.35%"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "May-平效期",
+          "subject": "平效促销",
+          "audience": "Active",
+          "reasons": [
+            "GMV 极低",
+            "平效期不宜硬广"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "checkout abandoned flow_V1",
+          "subject": "Checkout",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 3.5%"
+          ]
+        }
+      ],
+      "flowWorst": []
+    },
+    "IT": {
+      "summary": "Prime Estate 大促 + Checkout Flow 4.3%。",
+      "campaignBest": [
+        {
+          "name": "2026 Prime Estate offerte first call",
+          "subject": "Prime Estate",
+          "audience": "Active IT",
+          "reasons": [
+            "GMV 最高"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "User Stories",
+          "subject": "Stories",
+          "audience": "Active",
+          "reasons": [
+            "点击 0.4%"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "checkout abandoned flow_V1",
+          "subject": "Checkout",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 4.3%"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Avviso spedizione Elite 30 V2",
+          "subject": "发货通知",
+          "audience": "Draft",
+          "reasons": [
+            "Draft 有发送，需确认是否应 Live",
+            "P2"
+          ]
+        }
+      ]
+    },
+    "EU": {
+      "summary": "泛欧账号 Campaign 打开低；Flow 贡献主要 GMV。",
+      "campaignBest": [
+        {
+          "name": "Prime Day Pre-Sale 2026",
+          "subject": "Prime Day 预售",
+          "audience": "EU 泛欧",
+          "reasons": [
+            "大促单点爆破"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "User stories",
+          "subject": "Stories",
+          "audience": "EU 泛欧",
+          "reasons": [
+            "点击 0.4%"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Checkout Abandoned Flow_V1",
+          "subject": "Checkout",
+          "audience": "Checkout",
+          "reasons": [
+            "Flow GMV 第一"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Welcome flow_V1",
+          "subject": "Welcome",
+          "audience": "新订阅",
+          "reasons": [
+            "打开 32% 低于 US 37%",
+            "泛欧多语言混库",
+            "P1：对标 US Welcome 序列"
+          ]
+        }
+      ]
+    },
+    "ES": {
+      "summary": "Prime Summer 预售最佳；Flow 为主力。",
+      "campaignBest": [
+        {
+          "name": "Preventa BLUETTI Prime Summer Power",
+          "subject": "Prime Summer 预售",
+          "audience": "ES Active",
+          "reasons": [
+            "点击 3.5%"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "Solar Generator Sale开售",
+          "subject": "开售通知",
+          "audience": "ES 订阅",
+          "reasons": [
+            "GMV 低",
+            "缺 urgency/预售节奏"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "Welcome flow_V1",
+          "subject": "Welcome",
+          "audience": "新订阅",
+          "reasons": [
+            "GMV Flow 主体"
+          ]
+        }
+      ],
+      "flowWorst": []
+    },
+    "JP": {
+      "summary": "会员日/初夏促销强；Checkout NEW Flow 转化 8.6%。",
+      "campaignBest": [
+        {
+          "name": "BLUETTI会员日",
+          "subject": "会员日",
+          "audience": "Active JP",
+          "reasons": [
+            "打开 43%"
+          ]
+        }
+      ],
+      "campaignWorst": [
+        {
+          "name": "太阳能板选购指南",
+          "subject": "选购指南",
+          "audience": "Active",
+          "reasons": [
+            "点击 0.5%",
+            "内容型"
+          ]
+        }
+      ],
+      "flowBest": [
+        {
+          "name": "checkout abandoned flow（NEW）",
+          "subject": "Checkout NEW",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 8.6% 全球最高"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "Sunset Unengaged Subscribers",
+          "subject": "Sungiene",
+          "audience": "低 engagement",
+          "reasons": [
+            "打开 5%",
+            "与 JP 团队对齐预期"
+          ]
+        }
+      ]
+    },
+    "CL": {
+      "summary": "Cyber Day burst + Checkout Flow 5.2%。",
+      "campaignBest": [
+        {
+          "name": "CL Cyber Day 开售",
+          "subject": "Cyber Day",
+          "audience": "CL Active",
+          "reasons": [
+            "本地大节"
+          ]
+        }
+      ],
+      "campaignWorst": [],
+      "flowBest": [
+        {
+          "name": "Checkout Abandoned Flow_V1",
+          "subject": "Checkout",
+          "audience": "Checkout",
+          "reasons": [
+            "转化 5.2%"
+          ]
+        }
+      ],
+      "flowWorst": [
+        {
+          "name": "checkout abandoned flow (2026 NEW)",
+          "subject": "Draft Checkout",
+          "audience": "Draft",
+          "reasons": [
+            "Draft 有数据，需决定是否合并到 Live",
+            "P2"
+          ]
+        }
+      ]
+    }
+  },
+  "successPlaybook": {
+    "title": "成功模式 · 下次可复制",
+    "campaign": [
+      "受众：优先 Active 30D/60D，避免 ALL 宽网",
+      "主题行：促销名 + 时限（Member Day / Prime Day / EOFY / Last Call）",
+      "Preview：写清具体利益（折扣、赠品、price guarantee）",
+      "排除：近期已购、bounce>1、已参与专项 list",
+      "节点：绑定本地购物季（飓风季、EOFY、Cyber Day 等）"
+    ],
+    "flow": [
+      "Checkout/Cart：保持行为触发 + 短序列 + 清晰 CTA",
+      "Welcome：3–5 封序列，主要 offer 放在第 2–3 封",
+      "Sunset：单独看 list hygiene，不与 Welcome/Checkout 比打开率",
+      "Draft：有发送数据则尽快确认 Live / 合并 / 下线"
+    ]
+  },
+  "failurePlaybook": {
+    "title": "失败模式 · 下次避免",
+    "campaign": [
+      "ALL 宽网 + 纯内容主题 → 打开低、GMV 低",
+      "同一活动克隆到冷订阅池",
+      "平效期硬广大促",
+      "主题行无 offer、无 urgency"
+    ],
+    "flow": [
+      "用 Sunset 打开率评判 Welcome/Checkout 质量",
+      "Welcome 序列内首封长期不迭代",
+      "Draft Flow 长期挂起但有发送",
+      "低 GMV 辅助 Flow 占用过多维护精力"
+    ]
+  },
+  "flowAlerts": [
+    {
+      "priority": "P0",
+      "region": "US",
+      "flow": "Welcome flow · Email 1",
+      "category": "Welcome",
+      "issue": "首封打开 28%，低于同序列后续邮件（38%）",
+      "action": "A/B 首封 Subject 或调整发送顺序"
+    },
+    {
+      "priority": "P1",
+      "region": "IT",
+      "flow": "Avviso spedizione Elite 30 V2",
+      "category": "Draft",
+      "issue": "Draft 状态仍有发送",
+      "action": "确认 Live / 合并 / 下线"
+    },
+    {
+      "priority": "P1",
+      "region": "CL",
+      "flow": "checkout abandoned (2026 NEW)",
+      "category": "Draft",
+      "issue": "Draft 与 Live Checkout 并存",
+      "action": "合并或下线 Draft 版本"
+    },
+    {
+      "priority": "P2",
+      "region": "US",
+      "flow": "Growave - Points Expiration",
+      "category": "Other",
+      "issue": "近 30 天 GMV 极低",
+      "action": "评估降频或合并"
+    },
+    {
+      "priority": "P2",
+      "region": "EU",
+      "flow": "Sunset Unengaged Subscribers",
+      "category": "Sunset",
+      "issue": "打开 1.4%（预期偏低）",
+      "action": "仅监控 list 健康"
+    },
+    {
+      "priority": "P2",
+      "region": "UK",
+      "flow": "Sunset Unengaged Subscribers",
+      "category": "Sunset",
+      "issue": "打开 1.5%（预期偏低）",
+      "action": "仅监控 list 健康"
+    }
+  ]
+}

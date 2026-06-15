@@ -1,0 +1,52 @@
+name: Sync Klaviyo Dashboard
+
+on:
+  schedule:
+    # 每天 06:00 UTC（北京时间 14:00）
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-dashboard
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync dashboard data from Klaviyo API
+        env:
+          KLAVIYO_API_KEY_US: ${{ secrets.KLAVIYO_API_KEY_US }}
+          KLAVIYO_API_KEY_AU: ${{ secrets.KLAVIYO_API_KEY_AU }}
+          KLAVIYO_API_KEY_CA: ${{ secrets.KLAVIYO_API_KEY_CA }}
+          KLAVIYO_API_KEY_UK: ${{ secrets.KLAVIYO_API_KEY_UK }}
+          KLAVIYO_API_KEY_FR: ${{ secrets.KLAVIYO_API_KEY_FR }}
+          KLAVIYO_API_KEY_DE: ${{ secrets.KLAVIYO_API_KEY_DE }}
+          KLAVIYO_API_KEY_IT: ${{ secrets.KLAVIYO_API_KEY_IT }}
+          KLAVIYO_API_KEY_EU: ${{ secrets.KLAVIYO_API_KEY_EU }}
+          KLAVIYO_API_KEY_ES: ${{ secrets.KLAVIYO_API_KEY_ES }}
+          KLAVIYO_API_KEY_JP: ${{ secrets.KLAVIYO_API_KEY_JP }}
+          KLAVIYO_API_KEY_CL: ${{ secrets.KLAVIYO_API_KEY_CL }}
+        working-directory: scripts
+        run: python sync_dashboard.py
+
+      - name: Commit updated dashboard.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dashboard/data/dashboard.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(dashboard): sync Klaviyo data [skip ci]"
+            git push
+          fi

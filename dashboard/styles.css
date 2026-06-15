@@ -1,0 +1,217 @@
+:root {
+  --bg: #0f1419;
+  --surface: #1a2332;
+  --surface2: #243044;
+  --border: #2d3a4f;
+  --text: #e8edf4;
+  --muted: #8b9cb3;
+  --accent: #3b82f6;
+  --success: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --radius: 10px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+h1 { font-size: 1.35rem; font-weight: 600; }
+h2 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+.controls { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.controls label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--muted); }
+select {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.main { max-width: 1200px; margin: 0 auto; padding: 1.25rem; }
+
+.loading, .error { text-align: center; padding: 3rem; color: var(--muted); }
+.error { color: var(--danger); }
+
+.hidden { display: none !important; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+}
+
+.kpi-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi-value { font-size: 1.35rem; font-weight: 600; margin-top: 0.2rem; }
+.kpi-value.info { color: #60a5fa; }
+.kpi-value.success { color: var(--success); }
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 800px) {
+  .chart-row { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+
+.pie-wrap { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.pie-wrap canvas { max-width: 160px; max-height: 160px; }
+.pie-legend { font-size: 0.9rem; }
+.pie-legend .total { font-weight: 600; margin-bottom: 0.5rem; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; margin: 0.25rem 0; color: var(--muted); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+.chart-card canvas { max-height: 280px; }
+
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { padding: 0.55rem 0.65rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
+td.num, th.num { text-align: right; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+tr.tone-top td { background: rgba(34, 197, 94, 0.08); }
+tr.tone-warn td { background: rgba(245, 158, 11, 0.08); }
+tr.tone-p0 td { background: rgba(239, 68, 68, 0.12); }
+tr.tone-p1 td { background: rgba(245, 158, 11, 0.1); }
+
+.hint { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
+
+.site-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.site-header {
+  width: 100%;
+  text-align: left;
+  background: var(--surface2);
+  border: none;
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header:hover { background: #2a3850; }
+.site-header .chevron { color: var(--muted); transition: transform 0.15s; }
+.site-block.open .chevron { transform: rotate(90deg); }
+
+.site-body { display: none; padding: 0.5rem 1rem 1rem; }
+.site-block.open .site-body { display: block; }
+
+.site-summary { color: var(--muted); font-size: 0.82rem; margin-bottom: 0.75rem; }
+
+.sub-block { margin-top: 0.5rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.sub-header {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.sub-body { display: none; padding: 0 0.75rem 0.75rem; }
+.sub-block.open .sub-body { display: block; }
+
+.email-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.email-card.best { border-left: 3px solid var(--success); }
+.email-card.worst { border-left: 3px solid var(--warn); }
+
+.email-name { font-weight: 600; font-size: 0.88rem; }
+.email-subject { color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+.email-audience { color: var(--accent); font-size: 0.78rem; margin-top: 0.2rem; }
+.email-reasons { margin-top: 0.4rem; padding-left: 1rem; font-size: 0.8rem; color: var(--muted); }
+.email-reasons li { margin: 0.15rem 0; }
+
+.playbook-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .playbook-grid { grid-template-columns: 1fr; }
+}
+
+.playbook-card h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+.playbook-section { margin-top: 0.75rem; }
+.playbook-section h4 { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
+.playbook-section ul { padding-left: 1.1rem; font-size: 0.85rem; color: var(--text); }
+.playbook-section li { margin: 0.25rem 0; }
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem 0 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+  border-top: 1px solid var(--border);
+}
