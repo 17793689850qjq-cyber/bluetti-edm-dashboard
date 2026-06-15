@@ -9,6 +9,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import quote
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -72,7 +73,8 @@ class KlaviyoClient:
             raise RuntimeError(f"HTTP {e.code} {path}: {detail[:500]}") from e
 
     def resolve_placed_order_metric(self) -> str:
-        payload = self._request("GET", "/metrics/?filter=equals(name,'Placed Order')")
+        filt = quote("equals(name,'Placed Order')")
+        payload = self._request("GET", f"/metrics/?filter={filt}")
         for row in payload.get("data", []):
             return row["id"]
         raise RuntimeError("Placed Order metric not found")
