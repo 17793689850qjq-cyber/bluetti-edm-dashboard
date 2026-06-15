@@ -205,9 +205,9 @@ function showPeriodNotice(message, isError = false) {
 
 async function loadData(period) {
   const primary = dataUrlForPeriod(period);
-  const fallbacks =
-    period.preset === "30d" ? ["data/dashboard.json", primary] : [primary, "data/dashboard.json"];
-  const urls = [...new Set(fallbacks)];
+  // Only 30d may fall back to dashboard.json (legacy default). Other presets must load their own file.
+  const urls =
+    period.preset === "30d" ? [...new Set(["data/dashboard.json", primary])] : [primary];
   let lastErr = null;
   for (const url of urls) {
     try {

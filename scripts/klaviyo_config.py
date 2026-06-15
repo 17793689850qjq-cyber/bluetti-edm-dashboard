@@ -39,15 +39,39 @@ PRESET_DAYS = (7, 30, 60, 90)
 TIMEFRAME = "last_30_days"  # legacy default key
 API_REVISION = "2024-10-15"
 
+# Klaviyo Reporting API preset keys (no last_60_days — use custom start/end)
+KLAVIYO_PRESET_KEYS: dict[int, str] = {
+    7: "last_7_days",
+    30: "last_30_days",
+    90: "last_90_days",
+}
+
 
 def klaviyo_timeframe(*, days: int | None = None, start: str | None = None, end: str | None = None) -> dict:
     """Build Klaviyo report timeframe: preset key or custom start/end."""
     if start and end:
-        return {"start": start, "end": end}
+        return _custom_timeframe(start, end)
     d = days if days is not None else DEFAULT_DAYS
+    key = KLAVIYO_PRESET_KEYS.get(d)
+    if key:
+        return {"key": key}
     if d in PRESET_DAYS:
-        return {"key": f"last_{d}_days"}
+        from datetime import date, timedelta
+
+        end_d = date.today()
+        start_d = end_d - timedelta(days=d - 1)
+        return _custom_timeframe(start_d.isoformat(), end_d.isoformat())
     raise ValueError(f"unsupported preset days {d}; use --start/--end for custom range")
+
+
+def _custom_timeframe(start: str, end: str) -> dict:
+    """Normalize YYYY-MM-DD or ISO datetimes for Klaviyo custom timeframe."""
+    def to_iso(value: str, *, end_of_day: bool) -> str:
+        if "T" in value:
+            return value
+        return f"{value}T{'23:59:59' if end_of_day else '00:00:00'}+00:00"
+
+    return {"start": to_iso(start, end_of_day=False), "end": to_iso(end, end_of_day=True)}
 
 
 def period_meta(*, days: int | None = None, start: str | None = None, end: str | None = None) -> dict:

@@ -13,7 +13,7 @@ from klaviyo_config import (
     PRESET_DAYS,
     SITE_ORDER,
     SUCCESS_PLAYBOOK,
-    dashboard_filename,
+    dashboard_filenames,
     period_meta,
 )
 from ranking import build_flow_insights
@@ -164,6 +164,7 @@ if __name__ == "__main__":
     if args.all_presets:
         for d in PRESET_DAYS:
             p = period_meta(days=d)
-            main(days=d, out_path=ROOT / "dashboard" / "data" / dashboard_filename(p), period=p)
+            for name in dashboard_filenames(p):
+                main(days=d, out_path=ROOT / "dashboard" / "data" / name, period=p)
     else:
         main(days=args.days)
