@@ -458,6 +458,16 @@ tr.tone-p1 td { background: rgba(245, 158, 11, 0.1); }
   border-top: 1px solid var(--border);
 }
 
+.footer .domain-hint {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.footer .domain-hint code {
+  font-size: 0.85em;
+}
+
 /* Flow filters & insight interactive */
 .filter-toolbar,
 .insight-toolbar {

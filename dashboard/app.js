@@ -847,8 +847,15 @@ function bindPeriodControls() {
   });
 }
 
+function showDomainHintIfNeeded() {
+  const host = location.hostname;
+  if (!host.endsWith(".github.io")) return;
+  $("#domain-hint")?.classList.remove("hidden");
+}
+
 async function init() {
   try {
+    showDomainHintIfNeeded();
     bindPeriodControls();
     bindFlowFilterHandlers();
     const urlPeriod = readUrlPeriod();
