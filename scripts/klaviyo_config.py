@@ -108,6 +108,33 @@ def dashboard_filename(period: dict) -> str:
     return names[0]
 
 
+def comparison_periods(period: dict) -> dict[str, dict]:
+    """MoM / YoY date ranges derived from the current dashboard period."""
+    from datetime import date, timedelta
+
+    start_d = date.fromisoformat(period["start"])
+    end_d = date.fromisoformat(period["end"])
+    days = period["days"]
+
+    mom_end = start_d - timedelta(days=1)
+    mom_start = mom_end - timedelta(days=days - 1)
+
+    def shift_year(d: date, years: int = -1) -> date:
+        try:
+            return d.replace(year=d.year + years)
+        except ValueError:
+            return d.replace(year=d.year + years, day=28)
+
+    yoy_start = shift_year(start_d)
+    yoy_end = shift_year(end_d)
+
+    mom = period_meta(start=mom_start.isoformat(), end=mom_end.isoformat())
+    yoy = period_meta(start=yoy_start.isoformat(), end=yoy_end.isoformat())
+    mom["label"] = f"前{days}天"
+    yoy["label"] = f"去年同期（{days}天）"
+    return {"mom": mom, "yoy": yoy}
+
+
 def dashboard_filenames(period: dict) -> list[str]:
     """All JSON filenames to write for a period (30d → dashboard.json + dashboard-30d.json)."""
     if period.get("preset") == "custom":

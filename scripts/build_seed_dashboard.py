@@ -13,9 +13,11 @@ from klaviyo_config import (
     PRESET_DAYS,
     SITE_ORDER,
     SUCCESS_PLAYBOOK,
+    comparison_periods,
     dashboard_filenames,
     period_meta,
 )
+from comparisons import build_comparisons, seed_comparison_snapshots
 from ranking import build_flow_insights
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -116,6 +118,35 @@ def main(days: int = DEFAULT_DAYS, out_path: Path | None = None, period: dict | 
     currency_by_region = {r["region"]: r["currency"] for r in ROWS}
     flow_insights, flow_index = build_seed_flow_insights(site_why, FLOW_ALERTS, currency_by_region)
 
+    totals = {
+        "campaignCny": total_campaign,
+        "flowCny": total_flow,
+        "gmvCny": total_gmv,
+        "campaignShare": total_campaign / total_gmv if total_gmv else 0,
+        "flowShare": total_flow / total_gmv if total_gmv else 0,
+        "global": {
+            "deliveryRate": 0.99,
+            "openRate": open_w / d,
+            "clickRate": click_w / d,
+            "convRate": conv / d,
+            "gmvCny": total_gmv,
+        },
+    }
+
+    ranges = comparison_periods(period)
+    mom_totals, mom_rows, yoy_totals, yoy_rows = seed_comparison_snapshots(ROWS, totals)
+    comparisons = build_comparisons(
+        totals,
+        mom_totals,
+        yoy_totals,
+        ROWS,
+        mom_rows,
+        yoy_rows,
+        period_meta=period,
+        mom_period=ranges["mom"],
+        yoy_period=ranges["yoy"],
+    )
+
     payload = {
         "meta": {
             "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -125,20 +156,8 @@ def main(days: int = DEFAULT_DAYS, out_path: Path | None = None, period: dict | 
             "errors": [],
             "seed": True,
         },
-        "totals": {
-            "campaignCny": total_campaign,
-            "flowCny": total_flow,
-            "gmvCny": total_gmv,
-            "campaignShare": total_campaign / total_gmv if total_gmv else 0,
-            "flowShare": total_flow / total_gmv if total_gmv else 0,
-            "global": {
-                "deliveryRate": 0.99,
-                "openRate": open_w / d,
-                "clickRate": click_w / d,
-                "convRate": conv / d,
-                "gmvCny": total_gmv,
-            },
-        },
+        "totals": totals,
+        "comparisons": comparisons,
         "siteOrder": SITE_ORDER,
         "rows": ROWS,
         "siteWhy": site_why,

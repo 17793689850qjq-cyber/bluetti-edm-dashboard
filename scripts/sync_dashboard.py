@@ -21,11 +21,13 @@ from klaviyo_config import (
     SUCCESS_PLAYBOOK,
     RegionConfig,
     api_key_for,
+    comparison_periods,
     dashboard_filename,
     dashboard_filenames,
     klaviyo_timeframe,
     period_meta,
 )
+from comparisons import build_comparisons
 from entity_cache import EntityCache
 from ranking import (
     build_flow_alerts,
@@ -310,6 +312,111 @@ def sync_region(region: RegionConfig, seed_why: dict, client: KlaviyoClient, per
     }
 
 
+def sync_region_totals(region: RegionConfig, client: KlaviyoClient) -> dict:
+    """Lightweight region sync for comparison periods (aggregates only)."""
+    metric_id = region.metric_id or client.resolve_placed_order_metric()
+    time.sleep(1)
+    camp_rows = client.campaign_report(metric_id)
+    time.sleep(1)
+    flow_rows = client.flow_report(metric_id)
+    camp_agg = agg_metrics(camp_rows) if camp_rows else _empty_metrics()
+    flow_agg = agg_metrics(flow_rows) if flow_rows else _empty_metrics()
+    campaign_gmv_cny = round(camp_agg["gmv"] * region.fx_to_cny, 0)
+    flow_gmv_cny = round(flow_agg["gmv"] * region.fx_to_cny, 0)
+    return {
+        "region": region.code,
+        "currency": region.currency,
+        "campaign": camp_agg,
+        "flow": flow_agg,
+        "campaignGmvCny": campaign_gmv_cny,
+        "flowGmvCny": flow_gmv_cny,
+        "totalGmvCny": campaign_gmv_cny + flow_gmv_cny,
+    }
+
+
+def fetch_comparison_rows(timeframe: dict, label: str) -> tuple[list[dict], list[str]]:
+    rows: list[dict] = []
+    errors: list[str] = []
+    for region in REGIONS:
+        key = api_key_for(region)
+        if not key:
+            continue
+        try:
+            client = KlaviyoClient(key, timeframe)
+            data = sync_region_totals(region, client)
+            rows.append(data)
+            print(f"OK {region.code} ({label})", file=sys.stderr)
+        except Exception as e:
+            msg = f"{region.code} [{label}]: {e}"
+            errors.append(msg)
+            print(f"SKIP {msg}", file=sys.stderr)
+    rows.sort(key=lambda r: SITE_ORDER.index(r["region"]) if r["region"] in SITE_ORDER else 99)
+    return rows, errors
+
+
+def totals_from_rows(rows: list[dict]) -> dict:
+    total_campaign = sum(r["campaignGmvCny"] for r in rows)
+    total_flow = sum(r["flowGmvCny"] for r in rows)
+    total_gmv = total_campaign + total_flow
+    delivered = sum(r["campaign"]["delivered"] + r["flow"]["delivered"] for r in rows)
+    open_w = sum(
+        r["campaign"]["openRate"] * r["campaign"]["delivered"]
+        + r["flow"]["openRate"] * r["flow"]["delivered"]
+        for r in rows
+    )
+    click_w = sum(
+        r["campaign"]["clickRate"] * r["campaign"]["delivered"]
+        + r["flow"]["clickRate"] * r["flow"]["delivered"]
+        for r in rows
+    )
+    conv = sum(r["campaign"]["conversions"] + r["flow"]["conversions"] for r in rows)
+    d = delivered or 1
+    return {
+        "campaignCny": total_campaign,
+        "flowCny": total_flow,
+        "gmvCny": total_gmv,
+        "campaignShare": total_campaign / total_gmv if total_gmv else 0,
+        "flowShare": total_flow / total_gmv if total_gmv else 0,
+        "global": {
+            "deliveryRate": 0.99,
+            "openRate": open_w / d,
+            "clickRate": click_w / d,
+            "convRate": conv / d,
+            "gmvCny": total_gmv,
+        },
+    }
+
+
+def attach_comparisons(dashboard: dict, period: dict, *, enabled: bool = True) -> dict:
+    if not enabled:
+        return dashboard
+    ranges = comparison_periods(period)
+    mom_tf = klaviyo_timeframe(start=ranges["mom"]["start"], end=ranges["mom"]["end"])
+    yoy_tf = klaviyo_timeframe(start=ranges["yoy"]["start"], end=ranges["yoy"]["end"])
+
+    mom_rows, mom_errors = fetch_comparison_rows(mom_tf, "MoM")
+    yoy_rows, yoy_errors = fetch_comparison_rows(yoy_tf, "YoY")
+
+    mom_totals = totals_from_rows(mom_rows) if mom_rows else None
+    yoy_totals = totals_from_rows(yoy_rows) if yoy_rows else None
+
+    dashboard["comparisons"] = build_comparisons(
+        dashboard["totals"],
+        mom_totals,
+        yoy_totals,
+        dashboard["rows"],
+        mom_rows or None,
+        yoy_rows or None,
+        period_meta=period,
+        mom_period=ranges["mom"],
+        yoy_period=ranges["yoy"],
+    )
+    if mom_errors or yoy_errors:
+        dashboard["meta"].setdefault("errors", [])
+        dashboard["meta"]["errors"].extend(mom_errors + yoy_errors)
+    return dashboard
+
+
 def build_dashboard(timeframe: dict, period: dict) -> dict:
     rows: list[dict] = []
     site_why: dict = {}
@@ -398,6 +505,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--start", help="Custom range start YYYY-MM-DD")
     p.add_argument("--end", help="Custom range end YYYY-MM-DD")
     p.add_argument("--out", help="Output path (default: dashboard/data/<period>.json)")
+    p.add_argument("--skip-comparisons", action="store_true", help="Skip MoM/YoY API fetches")
     return p.parse_args(argv)
 
 
@@ -432,6 +540,11 @@ def main(argv: list[str] | None = None) -> int:
                 period=period,
             )
         return 0
+
+    with_comparisons = not args.skip_comparisons
+    if with_comparisons:
+        print("Fetching MoM / YoY comparison data…", file=sys.stderr)
+        attach_comparisons(dashboard, period, enabled=True)
 
     payload = json.dumps(dashboard, ensure_ascii=False, indent=2)
     targets = [out_path] if args.out else [DATA_DIR / n for n in dashboard_filenames(period)]

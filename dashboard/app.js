@@ -16,7 +16,9 @@ const TRIGGER_SYNC_URL = "/.netlify/functions/trigger-sync";
 let customPollTimer = null;
 let customPollStartedAt = 0;
 let customPollPeriod = null;
-let syncTriggeredKey = null;
+let comparisonScope = "global";
+let comparisonSite = "US";
+let comparisonHandlersBound = false;
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -1003,6 +1005,139 @@ function renderPlaybook() {
   bindFlowInsightClicks($("#playbook-grid"));
 }
 
+function formatComparisonValue(metric, currency) {
+  const v = metric.current;
+  if (metric.kind === "rate") return pct(v, metric.key === "convRate" ? 2 : 1);
+  if (metric.kind === "cny") return cny(v);
+  if (metric.kind === "local") return localGmv(v, currency || "USD");
+  if (v >= 1e6) return `${(v / 1e6).toFixed(2)}M`;
+  if (v >= 1e3) return `${Math.round(v / 1e3)}K`;
+  return String(Math.round(v));
+}
+
+function formatComparisonRef(value, metric, currency) {
+  if (value == null) return "—";
+  if (metric.kind === "rate") return pct(value, metric.key === "convRate" ? 2 : 1);
+  if (metric.kind === "cny") return cny(value);
+  if (metric.kind === "local") return localGmv(value, currency || "USD");
+  if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M`;
+  if (value >= 1e3) return `${Math.round(value / 1e3)}K`;
+  return String(Math.round(value));
+}
+
+function deltaClass(metric, pctVal) {
+  if (pctVal == null || Number.isNaN(pctVal)) return "delta-neutral";
+  if (pctVal === 0) return "delta-neutral";
+  const up = pctVal > 0;
+  const good = metric.higherIsBetter ? up : !up;
+  return good ? "delta-up" : "delta-down";
+}
+
+function renderDeltaCell(metric, block) {
+  if (!block || block.pct == null) {
+    return `<td class="col-num delta-neutral">—</td>`;
+  }
+  const cls = deltaClass(metric, block.pct);
+  const label = block.pctLabel || pct(block.pct);
+  return `<td class="col-num ${cls}">${escapeHtml(label)}</td>`;
+}
+
+function renderComparisonPeriodLabels(comp) {
+  const el = $("#comparison-period-labels");
+  if (!el || !comp?.meta) return;
+  const m = comp.meta;
+  const cur = m.current;
+  const mom = m.mom;
+  const yoy = m.yoy;
+  el.innerHTML = [
+    `<span><strong>本期</strong> ${escapeHtml(cur?.label || "")} · ${escapeHtml(cur?.start || "")} ~ ${escapeHtml(cur?.end || "")}</span>`,
+    mom ? `<span><strong>环比</strong> ${escapeHtml(mom.label || "")} · ${escapeHtml(mom.start)} ~ ${escapeHtml(mom.end)}</span>` : "",
+    yoy ? `<span><strong>同比</strong> ${escapeHtml(yoy.label || "")} · ${escapeHtml(yoy.start)} ~ ${escapeHtml(yoy.end)}</span>` : "",
+  ]
+    .filter(Boolean)
+    .join("");
+}
+
+function renderComparisonTable(metrics, currency) {
+  const tbody = $("#comparison-table tbody");
+  if (!tbody) return;
+  tbody.innerHTML = (metrics || [])
+    .map((metric) => {
+      return `<tr>
+        <td class="metric-label">${escapeHtml(metric.label)}</td>
+        <td class="col-num"><strong>${escapeHtml(formatComparisonValue(metric, currency))}</strong></td>
+        <td class="col-num">${escapeHtml(formatComparisonRef(metric.mom?.value, metric, currency))}</td>
+        ${renderDeltaCell(metric, metric.mom)}
+        <td class="col-num">${escapeHtml(formatComparisonRef(metric.yoy?.value, metric, currency))}</td>
+        ${renderDeltaCell(metric, metric.yoy)}
+      </tr>`;
+    })
+    .join("");
+}
+
+function setupComparisonSiteSelect() {
+  const select = $("#comparison-site-select");
+  if (!select) return;
+  const order = DATA.siteOrder || DATA.rows?.map((r) => r.region) || [];
+  const sites = DATA.comparisons?.sites || {};
+  const options = order.filter((code) => sites[code]);
+  select.innerHTML = options
+    .map((code) => `<option value="${escapeHtml(code)}">${escapeHtml(code)}</option>`)
+    .join("");
+  if (options.includes(comparisonSite)) select.value = comparisonSite;
+  else {
+    comparisonSite = options[0] || "US";
+    select.value = comparisonSite;
+  }
+}
+
+function bindComparisonHandlers() {
+  if (comparisonHandlersBound) return;
+  comparisonHandlersBound = true;
+  document.querySelectorAll(".comparison-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      comparisonScope = btn.dataset.scope || "global";
+      document.querySelectorAll(".comparison-tab").forEach((b) => b.classList.toggle("active", b === btn));
+      renderComparison();
+    });
+  });
+  $("#comparison-site-select")?.addEventListener("change", (e) => {
+    comparisonSite = e.target.value;
+    renderComparison();
+  });
+}
+
+function renderComparison() {
+  bindComparisonHandlers();
+  const comp = DATA.comparisons;
+  const emptyEl = $("#comparison-empty");
+  const tableWrap = $("#comparison-table")?.closest(".card");
+  const siteFilter = $("#comparison-site-filter-wrap");
+
+  if (!comp?.global?.metrics?.length) {
+    emptyEl?.classList.remove("hidden");
+    tableWrap?.classList.add("hidden");
+    siteFilter?.classList.add("hidden");
+    $("#comparison-period-labels").innerHTML = "";
+    return;
+  }
+
+  emptyEl?.classList.add("hidden");
+  tableWrap?.classList.remove("hidden");
+  renderComparisonPeriodLabels(comp);
+
+  const isSites = comparisonScope === "sites";
+  siteFilter?.classList.toggle("hidden", !isSites);
+
+  if (isSites) {
+    setupComparisonSiteSelect();
+    const siteBlock = comp.sites?.[comparisonSite];
+    renderComparisonTable(siteBlock?.metrics || [], siteBlock?.currency);
+  } else {
+    renderComparisonTable(comp.global.metrics, null);
+  }
+}
+
 function refreshOverview() {
   renderKpis();
   renderCharts();
@@ -1014,6 +1149,7 @@ function showSection(name) {
   $(`#view-${name}`).classList.remove("hidden");
   $("#metric-filter-wrap").classList.toggle("hidden", name !== "overview");
   if (name === "overview") refreshOverview();
+  if (name === "comparison") renderComparison();
   if (name === "flow") renderFlow();
   if (name === "flow-insights") renderFlowInsights();
 }
@@ -1028,6 +1164,7 @@ function refreshAllViews() {
   renderPlaybook();
   const section = $("#section-select").value;
   if (section === "overview") refreshOverview();
+  if (section === "comparison") renderComparison();
 }
 
 async function applyPeriod(period, { silent = false, fallbackOnCustomMissing = false, replaceHistory = true } = {}) {
