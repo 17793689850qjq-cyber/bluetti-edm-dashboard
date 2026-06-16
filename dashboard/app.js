@@ -1173,12 +1173,8 @@ function renderComparisonCharts(block, currency) {
   });
 
   const rateKeys = [
-    { key: "openRate", label: "Camp 打开" },
-    { key: "clickRate", label: "Camp 点击" },
-    { key: "convRate", label: "Camp 转化" },
-    { key: "openRate", label: "Flow 打开", flow: true },
-    { key: "clickRate", label: "Flow 点击", flow: true },
-    { key: "convRate", label: "Flow 转化", flow: true },
+    { key: "convRate", label: "Campaign 转化率" },
+    { key: "convRate", label: "Flow 转化率", flow: true },
   ];
 
   const currentRates = rateKeys.map(({ key, flow: isFlow }) => {
@@ -1226,11 +1222,7 @@ function renderComparisonCharts(block, currency) {
         legend: { position: "top", labels: { font: chartFont, boxWidth: 12 } },
         tooltip: {
           callbacks: {
-            label: (ctx) => {
-              const v = ctx.raw;
-              const digits = ctx.dataIndex % 3 === 2 ? 2 : 1;
-              return `${ctx.dataset.label}: ${v.toFixed(digits)}%`;
-            },
+            label: (ctx) => `${ctx.dataset.label}: ${ctx.raw.toFixed(2)}%`,
           },
         },
       },
